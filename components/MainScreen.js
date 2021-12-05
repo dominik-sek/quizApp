@@ -32,13 +32,26 @@ const DATA = [
 
   ];
 
-const Item = ({ number }) => (
-    <View style={styles.drawer}>
+function Test1 (navigation)  {
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.headerText}>
+                    Test 1
+                </Text>
+            </View>
+        </View>
+    );
+};
+
+const Item = ({ number, navigation }) => (
+    <View style={styles.drawer} >
+        <TouchableOpacity onPress={()=>{navigation.navigate("Test")}}>{/* onPress navigate to the following test */}
         <Text style={{fontSize:30}}> Test no. {number}</Text>
-        {/* insert lorem ipsum into text:  */}
         <Text>
             Aliquip minim deserunt excepteur mollit deserunt est elit. Laborum ex nisi ipsum tempor voluptate et nisi commodo excepteur enim. Lorem tempor Lorem aliqua pariatur eu occaecat laborum laboris duis sunt magna laborum incididunt. Exercitation commodo deserunt nisi Lorem dolor dolore. Ad reprehenderit magna nostrud dolore do non proident est esse occaecat irure incididunt. Cillum laborum sit ad enim consectetur velit aliquip mollit aute fugiat.
        </Text>
+       </TouchableOpacity> 
     </View>
 );
 
@@ -62,10 +75,9 @@ function FloatingButton ({navigation}) {
 export default function MainScreen(params) {
 
     const renderItem = ({ item }) => (
-        <Item number={item.number} />
+        <Item number={item.number} navigation={params.navigation} />
     );
 
-   
 
 
     return(
@@ -76,7 +88,6 @@ export default function MainScreen(params) {
                     data={DATA}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
-                    
                     /> 
                 
             </SafeAreaView>
