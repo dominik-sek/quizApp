@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, FlatList, StyleSheet,SafeAreaView } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, View, FlatList, StyleSheet,SafeAreaView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Results from './Results';
 const DATA = [
     {
       id: '1',
@@ -45,16 +45,15 @@ const Item = ({ number }) => (
 
 
 
-const FloatingButton = () => {
+function FloatingButton ({navigation}) {
 
         return(
-            <TouchableOpacity style={styles.showResults} >
-                <Ionicons name="md-add" size={32} color="white" />
+            <View>
+            <TouchableOpacity onPress={()=>navigation.navigate("Results") } style={styles.showResults} >
+                <Ionicons name="arrow-undo-outline" size={32} color="white" />
             </TouchableOpacity>
-            
+            </View>
         )
-    
-
 
 }
 
@@ -72,14 +71,16 @@ export default function MainScreen(params) {
     return(
         <>
             <SafeAreaView style={styles.container}>
+            
                 <FlatList 
                     data={DATA}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                     
                     /> 
-                <FloatingButton/>
+                
             </SafeAreaView>
+            <FloatingButton navigation={params.navigation}/>
         </>
 
     );
@@ -105,11 +106,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         right: 20,
-        backgroundColor: 'green',
+        backgroundColor: '#0088ff',
         borderRadius: 50,
         padding: 10,
         paddingHorizontal: 20,
-        paddingVertical:20
+        paddingVertical:20,
         
 
     }
