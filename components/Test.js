@@ -106,7 +106,7 @@ export default function Test({navigation}) {
             setProgressBar((prev)=>{
                 if(prev >= 1.2){
                     clearInterval(Interval);
-                    return 1.120;
+                    return 1;
                 }else{
                     return prev + 0.01;
                 }
@@ -115,8 +115,32 @@ export default function Test({navigation}) {
         return () => clearInterval(Interval);
     }, []);
 
-    let content = 0;
+    const[content,setContent] = React.useState(0);
+
+    const isOverTime = () => {
+        if(progressBar === 1 && content < tasks.length - 1) {
+            setContent(content+1);
+        }
+    }
     
+    const handleQuestionChange =()=>{
+        if(content < tasks.length -1){
+            setContent(content+1);
+        }
+
+        if(content === tasks.length -1){
+            navigation.navigate('Result');
+        }
+    }
+    const [score,setScore] = React.useState(0);
+
+    const handleAnswer = (isCorrect) => {
+        if(isCorrect){
+            setScore(score+1);
+        }
+    }
+    
+
     return(
     // use tasks list to render questions
         
@@ -125,21 +149,23 @@ export default function Test({navigation}) {
                 <Progress.Bar progress={progressBar} width={300} />
             </View>
             <View style={styles.question}>
+                {isOverTime()}
                 <Text style={styles.questionText}>{tasks[content].question}</Text>
             </View>
             
             <View style={styles.answers}>
                 <FlatList
                     data={tasks[content].options}
-                    renderItem={({item}) => <Answer content={item.option} />}
+                    renderItem={({item}) => <Answer onPress={()=>{handleAnswer(item.isCorrect) }} Key={item.option} content={item.option} />}
                     keyExtractor={(item) => item.option}
                 />
             </View>
             <View style={styles.button}>
                 <Button
-
-                    title="Next"
-                    onPress={() => { content++; }}
+                    title={content === tasks.length - 1 ? "Finish" : "Next"}
+                    onPress={
+                        content === tasks.length - 1 ? () => console.log(score) : handleQuestionChange
+                    }
                     buttonStyle={{
                         backgroundColor: '#00b894',
                         width: '100%',
@@ -154,6 +180,9 @@ export default function Test({navigation}) {
                         color: '#fff',
                     }}
                 />
+
+                
+
             </View>
         </View>
 
