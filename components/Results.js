@@ -1,57 +1,117 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet} from 'react-native';
+import { View, Text, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import { FlatList } from 'react-native-gesture-handler';
+const results = [
+    {
+        "nickname": "Bobby",
+        "score": "100",
+        "total": "100",
+        "type": "historia",
+        "date": "12/12/2019"
+    },
+    {
+        "nickname": "adam",
+        "score": "100",
+        "total": "100",
+        "type": "historia",
+        "date": "12/12/2019"
+    },
+    {
+        "nickname": "aksd",
+        "score": "100",
+        "total": "100",
+        "type": "historia",
+        "date": "12/12/2019"
+    }
+]
 
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 export default function Results({ navigation }) {
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
 
 
     return (
-        <ScrollView>
+        <ScrollView
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+        >
             <Grid>
-                <Col size={25} style={styles.col}>
-                    <Row style={styles.cell}>
-                        <Text>COL1</Text>
-                    </Row>
-                    
-                </Col>
-                <Col size={25}style={styles.col}>
-                    <Row style={styles.cell}>
-                        <Text>COL2</Text>
-                    </Row>
-                    
-                </Col>
-                <Col size={25} style={styles.col}>
-                    <Row style={styles.cell}>
-                        <Text>COL3</Text>
-                    </Row>
-                
-
-
-                </Col>
-
+                <Row>
+                    <Col>
+                        <Text style={styles.text}>nickname</Text>
+                    </Col>
+                    <Col>
+                        <Text style={styles.text}>score</Text>
+                    </Col>
+                    <Col>
+                        <Text style={styles.text}>total</Text>
+                    </Col>
+                    <Col>
+                        <Text style={styles.text}>type</Text>
+                    </Col>
+                    <Col>
+                        <Text style={styles.text}>date</Text>
+                    </Col>
+                </Row>
             </Grid>
+            <FlatList
+
+                data={results}
+                renderItem={({ item }) => (
+                    <View style={styles.container}>
+                        <Grid>
+                            <Row>
+                                <Col>
+                                    <Text style={styles.text}>{item.nickname}</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={styles.text}>{item.score}</Text>
+
+                                </Col>
+                                <Col>
+                                    <Text style={styles.text}>{item.total}</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={styles.text}>{item.type}</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={styles.text}>{item.date}</Text>
+                                </Col>
+                            </Row>
+                        </Grid>
+                    </View>
+                )}
+                keyExtractor={item => item.nickname}
+            />
         </ScrollView>
     );
-};
+}
+
 const styles = StyleSheet.create({
     container: {
-      width: '100%',
-      height: 300,
-      padding: 16,
-      paddingTop: 100,
-      backgroundColor: '#fff',
+        backgroundColor: '#fff',
     },
     cell: {
-      borderWidth: 1,
-      borderColor: '#ddd',
-      
-      flex: 1, 
-      justifyContent: 'center',
-      alignItems: 'center'
+        borderWidth: 1,
+        borderColor: '#ddd',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    col:{
+    col: {
         flex: 1,
         backgroundColor: '#0066ff',
     }
-  });
+});

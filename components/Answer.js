@@ -3,8 +3,8 @@ import { TouchableOpacity,Text,StyleSheet } from 'react-native';
 
 export default function Answer(params) {
         return(
-            <TouchableOpacity>
-                <Text style={styles.answer}>{params.answer}</Text>
+            <TouchableOpacity >
+                <Text style={styles.answer}>{params.content}</Text>
             </TouchableOpacity>
         )
     
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         borderRadius: 10,
-        
+        textAlign: 'center'
     },
 });
 

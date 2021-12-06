@@ -5,33 +5,100 @@ import * as Progress from 'react-native-progress';
 import { Button } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import Answer from './Answer';
-
-
-export default function Test({navigation, content}) {
-    /*  
-    content ={
-        title: 'test3',
-        questions:[
+const tasks = [
+    {
+        "question": "What is the capital of India?",
+        "options": [
             {
-                question: 'question1',
-                answers: [
-                    {
-                        answer: 'answer1',
-                        correct: true
-                    },
-                    {
-                        answer: 'answer2',
-                        correct: false
-                    },
-                    {
-                        answer: 'answer3',
-                        correct: false
-                    }
+                "option": "New Delhi",
+                "isCorrect": true
+            },
+            {
+                "option": "Mumbai",
+                "isCorrect": false
+            },
+            {
+                "option": "Chennai",
+                "isCorrect": false
+            },
+            {
+                "option": "Kolkata",
+                "isCorrect": false
+            }
         ]
-    }
 
+    },
+        {
+            "question": "What is the capital of UK?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of China?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of Australia?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": true
+                }
+            ]
+    
+        }
 
-    */
+]
+//accept tasks as props
+export default function Test({navigation}) {
+    
 
     const [progressBar, setProgressBar] = React.useState(0);
     useEffect(() => {
@@ -48,33 +115,53 @@ export default function Test({navigation, content}) {
         return () => clearInterval(Interval);
     }, []);
 
-
-
+    let content = 0;
+    
     return(
+    // use tasks list to render questions
         
+        <View style={styles.container}>
+            <View style={styles.progressBar}>
+                <Progress.Bar progress={progressBar} width={300} />
+            </View>
+            <View style={styles.question}>
+                <Text style={styles.questionText}>{tasks[content].question}</Text>
+            </View>
             
-                <View style={styles.container}>
-                    <Text style={styles.header}>Test number 69</Text>
-                    <View >
-                        <Text >
-                        Anim magna laboris nisi mollit qui dolore id. Occaecat proident ipsum enim ea. Eu minim reprehenderit et eu et pariatur do. Irure fugiat sunt sint dolor minim. Sit consequat laboris ullamco magna. Sunt dolore id consequat dolore sint et sit aliqua. Pariatur occaecat occaecat occaecat consectetur irure adipisicing elit veniam ex velit exercitation cillum magna.                    
+            <View style={styles.answers}>
+                <FlatList
+                    data={tasks[content].options}
+                    renderItem={({item}) => <Answer content={item.option} />}
+                    keyExtractor={(item) => item.option}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
 
-                        </Text>
-                        <Progress.Bar style={{margin: 20}} progress={progressBar} width={null} />
-                        <View style={styles.answers}>
-                            
-                            {/* loop through possible answers */}
-                            <Answer answer={"answer1"}/>
-                            <Answer answer={"answer2"}/>
-                            <Answer answer={"answer3"}/>
-                            <Answer answer={"answer4"}/>
-                        </View>
-                    </View>
-                </View>
+                    title="Next"
+                    onPress={() => { content++; }}
+                    buttonStyle={{
+                        backgroundColor: '#00b894',
+                        width: '100%',
+                        height: 50,
+                        borderRadius: 25,
+                        marginTop: 20,
+                        marginBottom: 20,
+                    }}
+                    titleStyle={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#fff',
+                    }}
+                />
+            </View>
+        </View>
+
+
             
-       
-    )
-};
+    );
+}
+
 
 const styles = StyleSheet.create({
     container: {
