@@ -3,6 +3,10 @@
     "name": "quizApp",
     "slug": "quizApp",
     "version": "1.0.0",
+    "splash": {
+      "image": "./assets/splash.png"
+    },
+    
     "assetBundlePatterns": [
       "**/*"
     ]
