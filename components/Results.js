@@ -36,19 +36,21 @@ export default function Results({ navigation, route }) {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(2000).then(() => setRefreshing(false));
+        wait(1000).then(() => setRefreshing(false));
     }, []);
-    console.log("route params: "+route.params?.score)
-    results.push({
-        "nickname": route.params?.nickname,
-        "score": route.params?.score,
-        "total": route.params?.total,
-        "type": route.params?.type,
-        "date": route.params?.date
-    })
 
-
-
+    if(!refreshing){
+        results.push({
+            "nickname": route.params?.nickname,
+            "score": route.params?.score,
+            "total": route.params?.total,
+            "type": route.params?.type,
+            "date": route.params?.date
+        })
+    }
+    
+    //clear params
+    //TODO: restart the test after hitting finish button
 
     return (
         <ScrollView
@@ -82,20 +84,19 @@ export default function Results({ navigation, route }) {
                     <View style={styles.container}>
                         <Grid>
                             <Row>
-                                <Col>
+                                <Col style={styles.col} >
                                     <Text style={styles.text}>{item.nickname}</Text>
                                 </Col>
-                                <Col>
-                                    <Text style={styles.text}>{item.score}</Text>
-
+                                <Col style={styles.col}>
+                                  <Text style={styles.text}>{item.score}</Text>
                                 </Col>
-                                <Col>
+                                <Col style={styles.col}>
                                     <Text style={styles.text}>{item.total}</Text>
                                 </Col>
-                                <Col>
+                                <Col style={styles.col}>
                                     <Text style={styles.text}>{item.type}</Text>
                                 </Col>
-                                <Col>
+                                <Col style={styles.col}>
                                     <Text style={styles.text}>{item.date}</Text>
                                 </Col>
                             </Row>
@@ -122,5 +123,9 @@ const styles = StyleSheet.create({
     col: {
         flex: 1,
         backgroundColor: '#0066ff',
+    },
+    text:{
+        fontSize:15,
+        alignSelf:'center',
     }
 });

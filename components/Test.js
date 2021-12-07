@@ -4,41 +4,430 @@ import * as Progress from 'react-native-progress';
 
 import { Button } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
-//accept tasks as props
-export default function Test({navigation, tasks}) {
+//https://tgryl.pl/quiz/test/61316f7f99149c1a92250e46
+
+const quiz1tasks = [
+    {
+        "question": "What is the capital of India?",
+        "options": [
+            {
+                "option": "1",
+                "isCorrect": true
+            },
+            {
+                "option": "2",
+                "isCorrect": false
+            },
+            {
+                "option": "3",
+                "isCorrect": false
+            },
+            {
+                "option": "4",
+                "isCorrect": false
+            }
+        ]
+
+    },
+    {
+            "question": "What is the capital of UK?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "2",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
     
+        },
+        {
+            "question": "What is the capital of China?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "3",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of Australia?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "4",
+                    "isCorrect": true
+                }
+            ]
+    
+        },
+        
+
+]
+const quiz2tasks = [
+    {
+        "question": "What is the capital of India?",
+        "options": [
+            {
+                "option": "5",
+                "isCorrect": true
+            },
+            {
+                "option": "6",
+                "isCorrect": false
+            },
+            {
+                "option": "7",
+                "isCorrect": false
+            },
+            {
+                "option": "8",
+                "isCorrect": false
+            }
+        ]
+
+    },
+    {
+            "question": "What is the capital of UK?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "2",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of China?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "3",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of Australia?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "4",
+                    "isCorrect": true
+                }
+            ]
+    
+        },
+        
+
+]
+const quiz3tasks = [
+    {
+        "question": "What is the capital of India?",
+        "options": [
+            {
+                "option": "1",
+                "isCorrect": true
+            },
+            {
+                "option": "Mumbai",
+                "isCorrect": false
+            },
+            {
+                "option": "Chennai",
+                "isCorrect": false
+            },
+            {
+                "option": "Kolkata",
+                "isCorrect": false
+            }
+        ]
+
+    },
+    {
+            "question": "What is the capital of UK?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "2",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of China?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "3",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of Australia?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "4",
+                    "isCorrect": true
+                }
+            ]
+    
+        },
+        
+
+]
+const quiz4tasks = [
+    {
+        "question": "What is the capital of India?",
+        "options": [
+            {
+                "option": "1",
+                "isCorrect": true
+            },
+            {
+                "option": "Mumbai",
+                "isCorrect": false
+            },
+            {
+                "option": "Chennai",
+                "isCorrect": false
+            },
+            {
+                "option": "Kolkata",
+                "isCorrect": false
+            }
+        ]
+
+    },
+    {
+            "question": "What is the capital of UK?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "2",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of China?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "3",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of Australia?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "4",
+                    "isCorrect": true
+                }
+            ]
+    
+        },
+        
+
+]
+const Quizes ={
+    "1": quiz1tasks,
+    "2": quiz2tasks,
+    "3": quiz3tasks,
+    "4": quiz4tasks
+};
+
+//fetch test from site based on ID
+
+export default function Test({route, navigation}) {
+
+    const [tasks, setTasks] = React.useState(Quizes[route.params.testId]);
+
+    useEffect(() => {
+        setTasks(Quizes[route.params.testId]);
+
+    }, [route.params.testId]);
+
+
 
     const [progressBar, setProgressBar] = React.useState(0);
     useEffect(() => {
         const Interval = setInterval(() => {
             setProgressBar((prev)=>{
-                if(prev >= 1.2){
+                if(prev === null){
+                    clearInterval(Interval);
+                    console.log("cleared");
+                }
+
+                if(prev >= 1){
+                    console.log("interval hit 1.2")
                     clearInterval(Interval);
                     return 1;
                 }else{
-                    return prev + 0.01;
+                    console.log("interval 0.2")
+                    return prev + 0.2;
                 }
+                
             });
         },1000);
-        return () => clearInterval(Interval);
+        return () => clearInterval(Interval), console.log("interval cleared");
     }, []);
 
     const[content,setContent] = React.useState(0);
 
     const isOverTime = () => {
-        if(progressBar === 1 && content < tasks.length - 1) {
-            setContent(content+1);
+        
+        if(progressBar === 1 && content <= tasks.length - 1) {
+            handleQuestionChange(score)
         }
     }
-    
-    
-
-    
-
+  
+   
     const [score,setScore] = React.useState(0);
-
-    
-
     const [userAnswer,setUserAnswer] = React.useState(null);
     const [isCorrect,setIsCorrect] = React.useState({
         userAnswer: null,
@@ -57,16 +446,13 @@ export default function Test({navigation, tasks}) {
         if(isCorrect.correctAnswer){
             setScore(score+1);
             
-            
-            setProgressBar(0);
-        }
+            }
             setUserAnswer(null);
             setIsCorrect({
             userAnswer: null,
             correctAnswer: null
         });
         
-
         setUserAnswer(null);
         setIsCorrect({
             userAnswer: null,
@@ -74,13 +460,14 @@ export default function Test({navigation, tasks}) {
         });
     }
     const handleQuestionChange = ()=>{
+        setProgressBar(0);
 
         if(content < tasks.length -1){
             validateAnswer();
             setContent(content+1);
         }
         if(content === tasks.length - 1){
-            validateAnswer();
+            setProgressBar(null)
             showResults();
         }
     }
@@ -88,7 +475,7 @@ export default function Test({navigation, tasks}) {
     const showResults =  () => {
         setScore((score)=>{
                 navigation.navigate('Results',{
-                nickname: 'testNickname',
+                nickname: 'tester',
                 score: score,
                 total: score,
                 type : 'TestType',
@@ -99,14 +486,13 @@ export default function Test({navigation, tasks}) {
 
     return(
 
-    // use tasks list to render questions
         
         <View style={styles.container}>
             <View style={styles.progressBar}>
                 <Progress.Bar progress={progressBar} width={300} />
+                {isOverTime()}
             </View>
             <View style={styles.question}>
-                {isOverTime()}
                 <Text style={styles.questionText}>{tasks[content].question}</Text>
             </View>
             
@@ -141,7 +527,6 @@ export default function Test({navigation, tasks}) {
                         color: '#fff',
                     }}
                 />
-                <Text>{userAnswer}</Text>
 
                 
 

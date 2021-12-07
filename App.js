@@ -11,7 +11,6 @@ import SplashScreen from 'react-native-splash-screen';
 import { values } from 'lodash';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-const Drawer = createDrawerNavigator();
 
 const storeData = async (value) => {
   try {

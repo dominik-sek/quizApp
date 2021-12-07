@@ -4,133 +4,26 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Results from './Results';
-const DATA = [
-    {
-      id: '1',
-        number: '1',
-    },
-    {
-      id: '2',
-        number: '2',
-    },
-    {
-      id: '3',
-        number: '3',
-    },
-    {
-        id: '4',
-        number: '4',
-    },
-    {
-        id: '5',
-        number: '5',
-    },
-    {
-        id: '6',
-        number: '6',
-    }
+import { map } from 'lodash';
 
-  ];
+//https://tgryl.pl/quiz/tests
 
-  const tasks = [
-    {
-        "question": "What is the capital of India?",
-        "options": [
-            {
-                "option": "1",
-                "isCorrect": true
-            },
-            {
-                "option": "Mumbai",
-                "isCorrect": false
-            },
-            {
-                "option": "Chennai",
-                "isCorrect": false
-            },
-            {
-                "option": "Kolkata",
-                "isCorrect": false
-            }
-        ]
 
-    },
-    {
-            "question": "What is the capital of UK?",
-            "options": [
-                {
-                    "option": "New Delhi",
-                    "isCorrect": false
-                },
-                {
-                    "option": "2",
-                    "isCorrect": true
-                },
-                {
-                    "option": "Chennai",
-                    "isCorrect": false
-                },
-                {
-                    "option": "Kolkata",
-                    "isCorrect": false
-                }
-            ]
-    
-        },
-        {
-            "question": "What is the capital of China?",
-            "options": [
-                {
-                    "option": "New Delhi",
-                    "isCorrect": false
-                },
-                {
-                    "option": "3",
-                    "isCorrect": true
-                },
-                {
-                    "option": "Chennai",
-                    "isCorrect": false
-                },
-                {
-                    "option": "Kolkata",
-                    "isCorrect": false
-                }
-            ]
-    
-        },
-        {
-            "question": "What is the capital of Australia?",
-            "options": [
-                {
-                    "option": "New Delhi",
-                    "isCorrect": false
-                },
-                {
-                    "option": "Mumbai",
-                    "isCorrect": false
-                },
-                {
-                    "option": "Chennai",
-                    "isCorrect": false
-                },
-                {
-                    "option": "4",
-                    "isCorrect": true
-                }
-            ]
-    
-        }
-
-]
-
-const Item = ({ number, navigation }) => (
+const Item = ({ id,name,description,tags, navigation }) => (
     <View style={styles.drawer} >
-        <TouchableOpacity onPress={()=>{navigation.navigate("Test")}}>{/* onPress navigate to the following test */}
-        <Text style={{fontSize:30}}> Test no. {number}</Text>
+        <TouchableOpacity onPress={()=>{navigation.navigate("Test "+id,{testId:id})} }>{/* onPress navigate to the following test */}
+        <Text style={{fontSize:30}}>{name}</Text>
+        <View style={{display:'flex', justifyContent:'flex-start', flexDirection:'row'}}>
+       {
+              map(tags, (tag)=>{
+                return <Text key={tag} style={{fontSize:15, padding:5}}>{tag}</Text>
+              })
+       }
+       </View>
         <Text>
-            Aliquip minim deserunt excepteur mollit deserunt est elit. Laborum ex nisi ipsum tempor voluptate et nisi commodo excepteur enim. Lorem tempor Lorem aliqua pariatur eu occaecat laborum laboris duis sunt magna laborum incididunt. Exercitation commodo deserunt nisi Lorem dolor dolore. Ad reprehenderit magna nostrud dolore do non proident est esse occaecat irure incididunt. Cillum laborum sit ad enim consectetur velit aliquip mollit aute fugiat.
+            {description}
        </Text>
+       
        </TouchableOpacity> 
     </View>
 );
@@ -153,9 +46,10 @@ function FloatingButton ({navigation}) {
 
 
 export default function MainScreen(params) {
-
+    let DATA = params.route.params.DATA;
     const renderItem = ({ item }) => (
-        <Item number={item.number} navigation={params.navigation} />
+        //id,name,description,tags,
+        <Item key={item.id} id={item.id} name={item.name} description={item.description} tags={item.tags} number={item.number} navigation={params.navigation} />
     );
 
 
