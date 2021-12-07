@@ -30,7 +30,7 @@ const results = [
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
-export default function Results({ navigation }) {
+export default function Results({ navigation, route }) {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -38,6 +38,15 @@ export default function Results({ navigation }) {
         setRefreshing(true);
         wait(2000).then(() => setRefreshing(false));
     }, []);
+    console.log("route params: "+route.params?.score)
+    results.push({
+        "nickname": route.params?.nickname,
+        "score": route.params?.score,
+        "total": route.params?.total,
+        "type": route.params?.type,
+        "date": route.params?.date
+    })
+
 
 
 

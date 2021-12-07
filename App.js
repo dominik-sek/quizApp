@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity,TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainScreen from './components/MainScreen';
@@ -36,11 +36,12 @@ const getData = async () => {
 
 
 
-
 export default function App() {
 
   const [checkboxState, setCheckboxState] = React.useState(false);
   const [navigateTo, setNavigateTo] = React.useState('');
+
+
   const checkboxHandler = (value) => {
     setCheckboxState(value);
   }
@@ -75,6 +76,9 @@ export default function App() {
           onPress={() => checkboxHandler(!checkboxState)}
         />
 
+        {/* add nickanem texinput */}
+        
+
         <TouchableOpacity
           style={{
             display: 'flex',
@@ -89,6 +93,7 @@ export default function App() {
           onPress={() => {
             storeData('true');
             setNavigateTo('Home');
+
           }}
         >
 

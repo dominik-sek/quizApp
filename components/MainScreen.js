@@ -32,17 +32,97 @@ const DATA = [
 
   ];
 
-function Test1 (navigation)  {
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>
-                    Test 1
-                </Text>
-            </View>
-        </View>
-    );
-};
+  const tasks = [
+    {
+        "question": "What is the capital of India?",
+        "options": [
+            {
+                "option": "1",
+                "isCorrect": true
+            },
+            {
+                "option": "Mumbai",
+                "isCorrect": false
+            },
+            {
+                "option": "Chennai",
+                "isCorrect": false
+            },
+            {
+                "option": "Kolkata",
+                "isCorrect": false
+            }
+        ]
+
+    },
+    {
+            "question": "What is the capital of UK?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "2",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of China?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "3",
+                    "isCorrect": true
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Kolkata",
+                    "isCorrect": false
+                }
+            ]
+    
+        },
+        {
+            "question": "What is the capital of Australia?",
+            "options": [
+                {
+                    "option": "New Delhi",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Mumbai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "Chennai",
+                    "isCorrect": false
+                },
+                {
+                    "option": "4",
+                    "isCorrect": true
+                }
+            ]
+    
+        }
+
+]
 
 const Item = ({ number, navigation }) => (
     <View style={styles.drawer} >
