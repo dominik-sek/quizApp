@@ -381,18 +381,23 @@ const Quizes ={
     "4": quiz4tasks
 };
 
-//fetch test from site based on ID
+const fetchTasks = async (testId) => {
+    try{
+        const response = await fetch('https://tgryl.pl/quiz/test/'+testId);
+        const json = await response.json();
+        return json;
+    }catch(error){
+        console.log(error);
+    }
+}
 
 export default function Test({route, navigation}) {
-
-    const [tasks, setTasks] = React.useState(Quizes[route.params.testId]);
-
-    useEffect(() => {
-        setTasks(Quizes[route.params.testId]);
-
-    }, [route.params.testId]);
+    const [tasks, setTasks] = React.useState([]);
+    setTasks(fetchTasks(route.params.testId).then(data => data.tasks));
 
 
+    
+    console.log("fetched: "+tasks[0].question)
 
     const [progressBar, setProgressBar] = React.useState(0);
     useEffect(() => {
@@ -498,7 +503,7 @@ export default function Test({route, navigation}) {
             
             <View style={styles.answers}>
                 <FlatList
-                    data={tasks[content].options}
+                    data={tasks[content].answers}
                     renderItem={({item}) => 
                         <TouchableOpacity onPress={()=>{handleUserAnswer(item.option,item.isCorrect) }} style={item.option === userAnswer ? styles.selected : styles.unselected}>
                             <Text>{item.option}</Text>

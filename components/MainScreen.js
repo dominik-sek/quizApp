@@ -4,14 +4,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Results from './Results';
-import { map } from 'lodash';
+import { map, reduce } from 'lodash';
 
 //https://tgryl.pl/quiz/tests
 
 
 const Item = ({ id,name,description,tags, navigation }) => (
     <View style={styles.drawer} >
-        <TouchableOpacity onPress={()=>{navigation.navigate("Test "+id,{testId:id})} }>{/* onPress navigate to the following test */}
+        <TouchableOpacity onPress={()=>{navigation.navigate({name},{testId:id})} }>{/* onPress navigate to the following test */}
         <Text style={{fontSize:30}}>{name}</Text>
         <View style={{display:'flex', justifyContent:'flex-start', flexDirection:'row'}}>
        {
@@ -45,11 +45,19 @@ function FloatingButton ({navigation}) {
 
 
 
-export default function MainScreen(params) {
-    let DATA = params.route.params.DATA;
+export default function MainScreen({route,navigation}) {
+    // get DATA from route and set it to quizzes
+    const { DATA } = route.params;
+    const [quizzes, setQuizzes] = React.useState(DATA);
+
+    
+
+    
+    //console.log("asd: "+route.params.DATA);
+    
     const renderItem = ({ item }) => (
-        //id,name,description,tags,
-        <Item key={item.id} id={item.id} name={item.name} description={item.description} tags={item.tags} number={item.number} navigation={params.navigation} />
+
+        <Item key={item.id} id={item.id} name={item.name} description={item.description} tags={item.tags} number={item.number} navigation={navigation} />
     );
 
 
@@ -59,13 +67,13 @@ export default function MainScreen(params) {
             <SafeAreaView style={styles.container}>
             
                 <FlatList 
-                    data={DATA}
+                    data={quizzes}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                     /> 
                 
             </SafeAreaView>
-            <FloatingButton navigation={params.navigation}/>
+            <FloatingButton navigation={navigation}/>
         </>
 
     );
@@ -74,6 +82,7 @@ export default function MainScreen(params) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: 'red',
       justifyContent: 'flex-start',
     },
 

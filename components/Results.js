@@ -2,30 +2,22 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { FlatList } from 'react-native-gesture-handler';
-const results = [
-    {
-        "nickname": "Bobby",
-        "score": "100",
-        "total": "100",
-        "type": "historia",
-        "date": "12/12/2019"
-    },
-    {
-        "nickname": "adam",
-        "score": "100",
-        "total": "100",
-        "type": "historia",
-        "date": "12/12/2019"
-    },
-    {
-        "nickname": "aksd",
-        "score": "100",
-        "total": "100",
-        "type": "historia",
-        "date": "12/12/2019"
-    }
-]
 
+
+let results =[];
+const getResults = async () => {
+  try{
+      const response = await fetch('https://tgryl.pl/quiz/results');
+      const json = await response.json();
+      return json;
+  }catch(error){
+      console.error(error);
+  }
+}
+
+ getResults().then(data => {
+    results = data;
+  });
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -35,19 +27,10 @@ export default function Results({ navigation, route }) {
     const [refreshing, setRefreshing] = React.useState(false);
 
     const onRefresh = React.useCallback(() => {
+        console.log('refreshing');
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
     }, []);
-
-    if(!refreshing){
-        results.push({
-            "nickname": route.params?.nickname,
-            "score": route.params?.score,
-            "total": route.params?.total,
-            "type": route.params?.type,
-            "date": route.params?.date
-        })
-    }
     
     //clear params
     //TODO: restart the test after hitting finish button
@@ -85,7 +68,7 @@ export default function Results({ navigation, route }) {
                         <Grid>
                             <Row>
                                 <Col style={styles.col} >
-                                    <Text style={styles.text}>{item.nickname}</Text>
+                                    <Text style={styles.text}>{item.nick}</Text>
                                 </Col>
                                 <Col style={styles.col}>
                                   <Text style={styles.text}>{item.score}</Text>
@@ -97,13 +80,13 @@ export default function Results({ navigation, route }) {
                                     <Text style={styles.text}>{item.type}</Text>
                                 </Col>
                                 <Col style={styles.col}>
-                                    <Text style={styles.text}>{item.date}</Text>
+                                    <Text style={styles.text}>{item.createdOn}</Text>
                                 </Col>
                             </Row>
                         </Grid>
                     </View>
                 )}
-                keyExtractor={item => item.nickname}
+                keyExtractor={item => item.id}
             />
         </ScrollView>
     );

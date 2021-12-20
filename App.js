@@ -8,7 +8,7 @@ import Test from './components/Test';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Home from './Home';
 import SplashScreen from 'react-native-splash-screen';
-import { values } from 'lodash';
+import { set, values } from 'lodash';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 
@@ -24,8 +24,9 @@ const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('@storage_Key')
     if (value !== null) {
-      setNavigateTo('Home')
-      return value
+
+      return value;
+            
     }
   } catch (e) {
     // error reading value
@@ -34,28 +35,39 @@ const getData = async () => {
 
 
 
-
 export default function App() {
 
   const [checkboxState, setCheckboxState] = React.useState(false);
-  const [navigateTo, setNavigateTo] = React.useState('');
-
-
+  const [quizzes, setQuizzes] = React.useState([]);
   const checkboxHandler = (value) => {
     setCheckboxState(value);
   }
+  const getQuizzes = async () => {
+    try{
+        const response = await fetch('https://tgryl.pl/quiz/tests');
+        const json = await response.json();
+        setQuizzes(json);
+    }catch(error){
+        console.error(error);
+    }
+  }
+  useEffect(() => {
+    getQuizzes();
+  }, []);
 
+
+      
   
-  getData();
-  if (navigateTo === 'Home') {
-    return (
-      <Home />
-    )
+  if (getData().then(data => {return data}) != null) {
+
+        return (
+          <Home quizzes={quizzes}/>
+        )
   }
 
-  
+
   else {
-    return (
+    return(
       <View style={{ padding: 20 }}>
         <Text style={{ marginTop: 50, paddingLeft: 10 }}>terms of service for first time users:</Text>
         <Text style={{ padding: 20 }}>
@@ -91,8 +103,6 @@ export default function App() {
 
           onPress={() => {
             storeData('true');
-            setNavigateTo('Home');
-
           }}
         >
 
